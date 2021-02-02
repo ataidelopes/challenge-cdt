@@ -31,7 +31,7 @@ public class Store implements AbstractEntity{
 
     @NotNull(message = "The field address is mandatory")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", insertable = false, updatable = false)
+    @JoinColumn(name = "address_id", updatable = false)
     private Address address;
 
 }

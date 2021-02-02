@@ -1,0 +1,10 @@
+version: "3.2"
+services:
+  sql-server-db:
+    container_name: sql_store_service
+    image: sql_store_service:latest
+    volumes:
+      - sql_store_service:/var/lib/sqlserver
+
+volumes:
+  sql_store_service:

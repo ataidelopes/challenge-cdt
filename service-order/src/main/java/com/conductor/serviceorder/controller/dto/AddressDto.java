@@ -1,6 +1,6 @@
-package com.conductor.challengecdt.controller.dto;
+package com.conductor.serviceorder.controller.dto;
 
-import com.conductor.challengecdt.model.Province;
+import com.conductor.serviceorder.model.Province;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 

@@ -4,7 +4,7 @@ spring:
   application:
     name: store
   jpa:
-    show-sql: false
+    show-sql: true
     hibernate:
       ddl-auto: update
     properties:
@@ -16,7 +16,7 @@ spring:
 
   datasource:
     url: jdbc:sqlserver://localhost;databaseName=store_challenge
-    username: sa
-    password: 'p@ssW0rd'
+    username: SA
+    password: 'p@ssw0rd'
     platform: mssql
 

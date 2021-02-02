@@ -9,9 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Slf4j
 @RestController
-@RequestMapping("v1/stores")
+@RequestMapping(value = "v1/stores", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StoreController {
 
@@ -24,7 +26,7 @@ public class StoreController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<StoreDto> getStore(@PathVariable("id") Long id){
+    public ResponseEntity<StoreDto> getStore(@PathVariable Long id){
         StoreDto storeDto = storeService.findById(id);
         return ResponseEntity.ok(storeDto);
     }
@@ -34,5 +36,4 @@ public class StoreController {
         StoreDto storeDto = storeService.update(store);
         return ResponseEntity.ok(storeDto);
     }
-
 }

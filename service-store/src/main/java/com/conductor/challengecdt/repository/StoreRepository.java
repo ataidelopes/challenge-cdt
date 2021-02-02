@@ -1,6 +1,7 @@
 package com.conductor.challengecdt.repository;
 
 import com.conductor.challengecdt.model.Store;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -8,5 +9,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  *
  * @author Rodrigo
  */
-public interface StoreRepository extends PagingAndSortingRepository<Store, Long> {
+public interface StoreRepository extends JpaRepository<Store, Long> {
 }

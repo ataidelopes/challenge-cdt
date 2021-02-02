@@ -4,7 +4,10 @@ package com.conductor.challengecdt.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.swing.plaf.nimbus.State;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  Entity represent a entity Address
@@ -33,15 +36,14 @@ public class Address implements AbstractEntity {
     @Column(nullable = false)
     private String postalCode;
 
-    @Column()
+    @Column
     private String complement;
 
-    @Column()
+    @Column
     private Integer number;
 
-    @NotNull(message = "The field state is mandatory")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "province_id", insertable = false, updatable = false)
-    private Province state;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 2, nullable = false)
+    private Province province;
 
 }

@@ -1,9 +1,9 @@
-package com.conductor.challengecdt.model;
+package com.conductor.serviceorder.model;
 
-import lombok.*;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
