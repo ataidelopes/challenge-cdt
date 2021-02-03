@@ -5,10 +5,7 @@ import common.enumaration.Province;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.swing.plaf.nimbus.State;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *  Entity represent a entity Address
