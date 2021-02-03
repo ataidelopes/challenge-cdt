@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: store
@@ -15,8 +15,7 @@ spring:
     enabled: false
 
   datasource:
-    url: jdbc:sqlserver://localhost;databaseName=store_challenge
+    url: jdbc:sqlserver://localhost;databaseName=order_challenge
     username: SA
     password: 'p@ssW0rd'
     platform: mssql
-

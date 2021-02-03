@@ -1,5 +1,6 @@
 package com.conductor.challengecdt.controller;
 
+import com.conductor.challengecdt.controller.dto.AddressDto;
 import com.conductor.challengecdt.controller.dto.StoreDto;
 import com.conductor.challengecdt.service.StoreService;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,15 @@ public class StoreController {
         return ResponseEntity.ok(storeDto);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StoreDto> putStore(@RequestBody StoreDto store){
-        StoreDto storeDto = storeService.update(store);
+    @PatchMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StoreDto> patchStore(@PathVariable Long id, @RequestBody StoreDto store){
+        StoreDto storeDto = storeService.update(id, store);
+        return ResponseEntity.ok(storeDto);
+    }
+
+    @PatchMapping(path = "/{id}/address", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StoreDto> patchAddressStore(@PathVariable Long id, @RequestBody AddressDto addressDto){
+        StoreDto storeDto = storeService.updateAddressStore(id, addressDto);
         return ResponseEntity.ok(storeDto);
     }
 }

@@ -1,5 +1,6 @@
 package com.conductor.challengecdt.service;
 
+import com.conductor.challengecdt.controller.dto.AddressDto;
 import com.conductor.challengecdt.controller.dto.StoreDto;
 import org.hibernate.ObjectNotFoundException;
 
@@ -24,7 +25,7 @@ public interface StoreService {
      * @return store if it exists in the database
      * @throws ObjectNotFoundException if not found in the database
      */
-    StoreDto findById(Long id) throws ObjectNotFoundException;
+    StoreDto findById(Long id);
 
 
     /**
@@ -33,5 +34,14 @@ public interface StoreService {
      * @param storeDto objecto dto of store
      * @return store object persisted
      */
-    StoreDto update(StoreDto storeDto);
+    StoreDto update(Long id, StoreDto storeDto);
+
+    /**
+     * Method for updatePartial Store entity
+     *
+     * @param id identity store for update address
+     * @param addressDto objecto dto of store
+     * @return store object persisted
+     */
+    StoreDto updateAddressStore(final Long id, final AddressDto addressDto);
 }
