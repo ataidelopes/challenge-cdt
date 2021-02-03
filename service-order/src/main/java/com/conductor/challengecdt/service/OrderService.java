@@ -1,7 +1,6 @@
 package com.conductor.challengecdt.service;
 
 import com.conductor.challengecdt.controller.dto.OrderDto;
-import org.hibernate.ObjectNotFoundException;
 
 public interface OrderService {
 
@@ -10,4 +9,6 @@ public interface OrderService {
     OrderDto findById(Long id);
 
     OrderDto update(Long id, OrderDto storeDto);
+
+    OrderDto makePayment(Long id, String numberCard);
 }

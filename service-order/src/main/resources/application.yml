@@ -4,7 +4,7 @@ spring:
   application:
     name: store
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
     properties:
@@ -19,3 +19,14 @@ spring:
     username: SA
     password: 'p@ssW0rd'
     platform: mssql
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      exchange: "payment"
+      mandatory: true

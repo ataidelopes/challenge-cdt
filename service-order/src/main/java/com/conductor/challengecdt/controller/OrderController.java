@@ -31,19 +31,15 @@ public class OrderController {
         return ResponseEntity.ok(orderDto);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> putOrder(@RequestBody OrderDto store){
-        return ResponseEntity.ok().build();
-    }
-
     @PatchMapping(path = "/{id}/add-item")
-    public ResponseEntity<Void> addItemInOrder(@PathVariable Long id, @RequestBody ItemDto itemDto){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<OrderDto> patchOrder(@PathVariable Long id, @RequestBody OrderDto ordemDto){
+        OrderDto orderUpdated = orderService.update(id, ordemDto);
+        return ResponseEntity.ok(orderUpdated);
     }
 
     @PatchMapping(path = "/{id}/make-payment", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> finallyPayment(@PathVariable Long id){
-
+    public ResponseEntity<Void> finallyPayment(@PathVariable Long id, @RequestBody String numberCard){
+        OrderDto orderDto = orderService.makePayment(id, numberCard);
         return ResponseEntity.ok().build();
     }
 

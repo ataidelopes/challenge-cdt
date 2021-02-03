@@ -1,16 +1,20 @@
 package com.conductor.challengecdt.service.impl;
 
 import com.conductor.challengecdt.controller.dto.OrderDto;
+import com.conductor.challengecdt.controller.dto.PaymentDto;
 import com.conductor.challengecdt.controller.mapper.OrderMapper;
 import com.conductor.challengecdt.model.Order;
 import com.conductor.challengecdt.model.OrderStatus;
 import com.conductor.challengecdt.repository.OrderRepository;
 import com.conductor.challengecdt.service.OrderService;
+import com.conductor.challengecdt.service.events.PaymentCreatedEvent;
+import common.exception.BusinessRulesExceptions;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public OrderDto created(final OrderDto orderDto) {
@@ -46,8 +51,30 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+    @Override
+    public OrderDto makePayment(Long id, String numberCard) {
+
+        Long idOrder = orderRepository.findByIdAndOrderStatusEqualsCreated(id)
+                .orElseThrow(() -> new BusinessRulesExceptions("unable to locate order to make payment"))
+                .getId();
+
+        PaymentDto paymentDto = createdObjectOrderPayment(idOrder, numberCard);
+        applicationEventPublisher.publishEvent(new PaymentCreatedEvent(paymentDto, this));
+        this.updateStatusOrder(idOrder, OrderStatus.PENDING_PAYMENT);
+
+        return null;
+    }
+
+    public void updateStatusOrder(Long id, OrderStatus status){
+        orderRepository.findById(id)
+                .ifPresent(order -> {
+                    order.setOrderStatus(status);
+                    orderRepository.save(order);
+                });
+    }
+
     /**
-     * method to converter a StoreDto object to order entity
+     * method to converter a orderDto object to order entity
      *
      * @param orderDto object for transform in entity
      * @return object mapper to Entity Store
@@ -61,5 +88,11 @@ public class OrderServiceImpl implements OrderService {
         orderObjMapper.setDateOrder(LocalDate.now());
         orderObjMapper.setOrderStatus(OrderStatus.CREATED);
         return orderObjMapper;
+    }
+
+    private PaymentDto createdObjectOrderPayment(Long id, String numberCreditCard) {
+        return PaymentDto.builder()
+                .creditCardNumber(numberCreditCard)
+                .identityOrder(id).build();
     }
 }
